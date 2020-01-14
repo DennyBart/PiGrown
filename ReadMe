@@ -1,9 +1,19 @@
-
+ #####                                    ######  #
+#     # #####   ####  #    # ##### #    # #     # 
+#       #    # #    # #    #   #   #    # #     # #
+#  #### #    # #    # #    #   #   ###### ######  #
+#     # #####  #    # # ## #   #   #    # #       #
+#     # #   #  #    # ##  ##   #   #    # #       #
+ #####  #    #  ####  #    #   #   #    # #       #
 
 
 This is a small set of scripts to control and monitor the growth of vegitables.
+Hope to grab soil sensor data and pump water to water the plants. Add a LED grow stips light to turn on to set time
+cycles set through and 'easy' to use GUI. The GUI will also show sensor data and allow interaction.
+
+
 
 v1.0
 Added LED lighting for tempeture limits.
 Added a open and closed circut monitor for water levels
-
+Write to CSV and plot graph
