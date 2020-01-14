@@ -1,15 +1,15 @@
- #####                                    ######
-#     # #####   ####  #    # ##### #    # #     # #
-#       #    # #    # #    #   #   #    # #     # #
-#  #### #    # #    # #    #   #   ###### ######  #
-#     # #####  #    # # ## #   #   #    # #       #
-#     # #   #  #    # ##  ##   #   #    # #       #
- #####  #    #  ####  #    #   #   #    # #       #
+#https://github.com/abartaa/GrowthPi
 
 import RPi.GPIO as GPIO
 import dht11
 import time
 import datetime
+import matplotlib.pyplot as plt
+
+#Plot lists
+plt.ion()
+x = []
+y = []
 
 # initialize GPIO
 GPIO.setwarnings(True)
@@ -25,9 +25,17 @@ try:
 	        print("Last valid input: " + str(datetime.datetime.now()))
             print("Temperature: %-3.1f C" % result.temperature)
             print("Humidity: %-3.1f %%" % result.humidity)
+
             with open("../sens_temp.csv", "a") as log:
                 #while True:
                 if result.temperature != 0.0:
+
+                    y.append(result.temperature)
+                    x.append(time.time())
+
+                    plt.clf()
+                    plt.scatter(x,y)
+                    plt.plot(x,y)
                     log.write("{0},{1}\n".format(time.strftime("%Y-%m-%d %H:%M:%S"),str(result.temperature)))
             if result.temperature > 18.4:
                 GPIO.setup(24, GPIO.OUT)
@@ -41,7 +49,9 @@ try:
                 GPIO.setup(24, GPIO.OUT)
                 GPIO.output(24, False)
                 print("Red Lights")
-	    time.sleep(5)
+	    plt.pause(1)
+        plt.draw()
+        time.sleep(5)
 
 except KeyboardInterrupt:
     print("Cleanup")
