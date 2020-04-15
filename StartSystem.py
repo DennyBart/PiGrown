@@ -55,7 +55,7 @@ def start_pump(pump_pin = 4, delay = 1): #Start pump
     GPIO.output(pump_pin, GPIO.HIGH) #PumpOff
 
 
-def pumpcheck(): #Check the last time the pump was ran
+def pump_check(): #Check the last time the pump was ran
    currentdate = str(datetime.datetime.now())
    last_water = get_last_watered()
    today = find_day_month(currentdate)
@@ -69,7 +69,7 @@ def pumpcheck(): #Check the last time the pump was ran
 
 
 #Schedule Events
-schedule.every(5).seconds.do(pumpcheck)
+schedule.every(5).seconds.do(pump_check)
 
 while True:
     schedule.run_pending()
