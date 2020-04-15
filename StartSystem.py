@@ -30,19 +30,19 @@ def init_output(pin): #Initialise pin by providing pin NO
     GPIO.output(pin, GPIO.LOW)
     GPIO.output(pin, GPIO.HIGH)
 
-def waterlevel(water_pin=26): #Check Water Level Circuit
+def water_level(water_pin=26): #Check Water Level Circuit
     init_output(water_pin)
     #Check circuit on pin and casts INT to BOOL (Low is True - High is False)
     return bool(GPIO.input(26))
 
 def soilsens(moisture): #Place holder for soil sensor
     if moisture < soillimit:
-        startpump()
+        start_pump()
     else:
         print('All OK with Soil')
 
 
-def startpump(pump_pin = 4, delay = 1): #Start pump
+def start_pump(pump_pin = 4, delay = 1): #Start pump
     f = open("watered.txt", "a") # Write to file to store last ran date
     currenttime = str(datetime.datetime.now())
     f.write("{}\n".format(datetime.datetime.now()))
@@ -61,7 +61,7 @@ def pumpcheck(): #Check the last time the pump was ran
    today = find_day_month(currentdate)
    if last_water[1] != today[1]:
        print("Watering!")
-       startpump()
+       start_pump()
        email_sent = False #Reset email bool so that a email can be sent once watered again and water lever low
    else:
        print ('Already watered today')
@@ -73,7 +73,7 @@ schedule.every(5).seconds.do(pumpcheck)
 
 while True:
     schedule.run_pending()
-    if waterlevel() == False and email_sent == False:
+    if water_level() == False and email_sent == False:
         print("Call EMAIL Class")
         email_sent = True
     time.sleep(3)
