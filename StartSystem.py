@@ -35,7 +35,7 @@ def water_level(water_pin=26): #Check Water Level Circuit
     #Check circuit on pin and casts INT to BOOL (Low is True - High is False)
     return bool(GPIO.input(26))
 
-def soilsens(moisture): #Place holder for soil sensor
+def soil_sens(moisture): #Place holder for soil sensor
     if moisture < soillimit:
         start_pump()
     else:
